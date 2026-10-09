@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f4f1ea">
+  <meta name="description" content="Compress and resize images privately in your browser.">
+  <title>PixelPress — Private image compression</title>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <main class="page">
+    <header>
+      <a class="brand" href="./"><span class="brand-mark">P</span> PixelPress</a>
+      <span class="privacy">Runs locally · nothing uploaded</span>
+    </header>
+
+    <section class="hero">
+      <p class="eyebrow">Private image utility</p>
+      <h1>Make images lighter.<br>Keep them yours.</h1>
+      <p class="lede">Resize and compress JPG, PNG, and WebP files directly in your browser.</p>
+    </section>
+
+    <section class="tool" aria-label="Image compressor">
+      <label class="dropzone" id="dropzone" for="file-input">
+        <input id="file-input" type="file" accept="image/png,image/jpeg,image/webp">
+        <span class="drop-icon" aria-hidden="true">↓</span>
+        <strong>Drop an image here</strong>
+        <span>or click to choose a file</span>
+      </label>
+
+      <div class="editor" id="editor" hidden>
+        <div class="preview-wrap"><img id="preview" alt="Selected image preview"></div>
+        <form class="controls" id="controls">
+          <div class="file-meta"><div><span class="label">File</span><strong id="file-name"></strong></div><button type="button" id="replace">Replace</button></div>
+          <div class="dimensions">
+            <label>Width <input id="width" type="number" min="1" max="12000"></label>
+            <span>×</span>
+            <label>Height <input id="height" type="number" min="1" max="12000"></label>
+          </div>
+          <label class="select-label">Format<select id="format"><option value="image/webp">WebP</option><option value="image/jpeg">JPG</option><option value="image/png">PNG</option></select></label>
+          <label class="quality-label"><span>Quality <output id="quality-value">82%</output></span><input id="quality" type="range" min="20" max="100" value="82"></label>
+          <div class="summary"><div><span>Original</span><strong id="original-size">—</strong></div><div><span>Estimated</span><strong id="output-size">—</strong></div></div>
+          <button class="download" id="download" type="submit">Compress &amp; download</button>
+          <p class="status" id="status" role="status"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+  <canvas id="canvas" hidden></canvas>
+  <script src="./app.js" defer></script>
+</body>
+</html>
