@@ -1,0 +1,22 @@
+name: Release v1.0.0
+on:
+  push:
+    branches: [main]
+permissions:
+  contents: write
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate
+        run: |
+          node --check app.js
+          node --check sw.js
+          jq empty manifest.webmanifest
+      - name: Package
+        run: zip -9 pixelpress-v1.0.0.zip README.md app.js icon.svg index.html manifest.webmanifest styles.css sw.js
+      - name: Publish
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create v1.0.0 pixelpress-v1.0.0.zip --title 'PixelPress v1.0.0' --notes 'First stable release of the private, local-only image compressor PWA.'
